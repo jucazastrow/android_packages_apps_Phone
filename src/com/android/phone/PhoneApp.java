@@ -515,7 +515,7 @@ public class PhoneApp extends Application implements AccelerometerListener.Orien
 
             // create mAccelerometerListener only if we are using the proximity sensor
             if (proximitySensorModeEnabled()) {
-                mAccelerometerListener = new AccelerometerListener(this, this);
+                if (mAccelerometerListener == null) mAccelerometerListener = new AccelerometerListener(this, this);
                 if (mLightSensorListener == null) mLightSensorListener = new LightSensorListener(this, this);
             }
 

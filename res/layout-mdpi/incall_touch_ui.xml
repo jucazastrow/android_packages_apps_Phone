@@ -56,7 +56,7 @@
         android:visibility="gone"
         android:layout_alignParentBottom="true"
         />
-        
+
     <!--
         (2) inCallControls: the widgets visible while a regular call
         (or calls) is in progress

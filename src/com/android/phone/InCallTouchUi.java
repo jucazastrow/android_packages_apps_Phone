@@ -640,6 +640,72 @@ public class InCallTouchUi extends FrameLayout
         // the hint text we were displaying while the user was dragging.
         mInCallScreen.updateRotarySelectorHint(0, 0);
     }
+    
+    //
+    // RingSelector.OnRingTriggerListener implementation
+    //
+
+    /**
+     * Handles "Answer" and "Reject" actions for an incoming call.
+     * We get this callback from the RotarySelector
+     * when the user triggers an action.
+     *
+     * To answer or reject the incoming call, we call
+     * InCallScreen.handleOnscreenButtonClick() and pass one of the
+     * special "virtual button" IDs:
+     *   - R.id.answerButton to answer the call
+     * or
+     *   - R.id.rejectButton to reject the call.
+     */
+    public void onRingTrigger(View v, int whichRing, int whichApp) {
+        log("onRingTrigger(whichRing = " + whichRing + ")...");
+
+        switch (whichRing) {
+            case RingSelector.OnRingTriggerListener.LEFT_RING:
+                if (DBG) log("LEFT_RING: answer!");
+
+                hideIncomingCallWidget();
+
+                // ...and also prevent it from reappearing right away.
+                // (This covers up a slow response from the radio; see updateState().)
+                mLastIncomingCallActionTime = SystemClock.uptimeMillis();
+
+                // Do the appropriate action.
+                if (mInCallScreen != null) {
+                    // Send this to the InCallScreen as a virtual "button click" event:
+                    mInCallScreen.handleOnscreenButtonClick(R.id.answerButton);
+                } else {
+                    Log.e(LOG_TAG, "answer trigger: mInCallScreen is null");
+                }
+                break;
+
+            case RingSelector.OnRingTriggerListener.RIGHT_RING:
+                if (DBG) log("RIGHT_RING: reject!");
+
+                hideIncomingCallWidget();
+
+                // ...and also prevent it from reappearing right away.
+                // (This covers up a slow response from the radio; see updateState().)
+                mLastIncomingCallActionTime = SystemClock.uptimeMillis();
+
+                // Do the appropriate action.
+                if (mInCallScreen != null) {
+                    // Send this to the InCallScreen as a virtual "button click" event:
+                    mInCallScreen.handleOnscreenButtonClick(R.id.rejectButton);
+                } else {
+                    Log.e(LOG_TAG, "reject trigger: mInCallScreen is null");
+                }
+                break;
+
+            default:
+                Log.e(LOG_TAG, "onRingTrigger: unexpected whichRing value: " + whichRing);
+                break;
+        }
+
+        // Regardless of what action the user did, be sure to clear out
+        // the hint text we were displaying while the user was dragging.
+        mInCallScreen.updateRotarySelectorHint(0, 0);
+    }
     //
     // SlidingTab.OnTriggerListener implementation
     //

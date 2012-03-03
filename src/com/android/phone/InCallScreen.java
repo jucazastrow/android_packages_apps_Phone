@@ -74,6 +74,7 @@ import com.android.phone.OtaUtils.CdmaOtaInCallScreenUiState;
 import com.android.phone.OtaUtils.CdmaOtaScreenState;
 
 import java.util.List;
+import android.view.SurfaceView;
 
 /**
  * Phone app "in call" screen.
@@ -184,7 +185,8 @@ public class InCallScreen extends Activity
     // know its undefined. In particular checkIsOtaCall will return
     // false.
     public static final String ACTION_UNDEFINED = "com.android.phone.InCallScreen.UNDEFINED";
-
+    private SurfaceView camPreview;
+    
     // High-level "modes" of the in-call UI.
     private enum InCallScreenMode {
         /**
@@ -581,6 +583,9 @@ public class InCallScreen extends Activity
 
         // Inflate everything in incall_screen.xml and add it to the screen.
         setContentView(R.layout.incall_screen);
+
+        camPreview = (SurfaceView) findViewById(R.id.campreview);
+
 
         initInCallScreen();
 
@@ -5370,4 +5375,9 @@ public class InCallScreen extends Activity
      }
      return super.onTrackballEvent(event);
    }
+
+    public SurfaceView getCamPreview() {
+    	return camPreview;
+    }
+   
 }

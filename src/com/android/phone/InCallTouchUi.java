@@ -626,6 +626,7 @@ public class InCallTouchUi extends FrameLayout
         // the hint text we were displaying while the user was dragging.
         mInCallScreen.updateRotarySelectorHint(0, 0);
     }
+    
     //
     // SlidingTab.OnTriggerListener implementation
     //

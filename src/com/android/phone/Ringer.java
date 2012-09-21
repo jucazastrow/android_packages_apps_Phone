@@ -33,6 +33,7 @@ import android.os.SystemProperties;
 import android.os.Vibrator;
 import android.provider.Settings;
 import android.util.Log;
+import android.provider.Settings;
 
 import com.android.internal.telephony.Phone;
 /**
@@ -40,7 +41,7 @@ import com.android.internal.telephony.Phone;
  */
 public class Ringer {
     private static final String LOG_TAG = "Ringer";
-    private static final boolean DBG =
+    private static final boolean DBG = 
             (PhoneApp.DBG_LEVEL >= 1) && (SystemProperties.getInt("ro.debuggable", 0) == 1);
 
     private static final int PLAY_RING_ONCE = 1;
@@ -365,7 +366,7 @@ public class Ringer {
                                 }
                             }
                             r = mRingtone;
-                            if (r != null && !hasMessages(STOP_RING) && !r.isPlaying()) {
+                            if (r != null && !hasMessages(STOP_RING)/* && !r.isPlaying()*/) {
                                 PhoneUtils.setAudioMode();
                                 r.play();
                                 synchronized (Ringer.this) {
@@ -373,6 +374,13 @@ public class Ringer {
                                         mFirstRingStartTime = SystemClock.elapsedRealtime();
                                     }
                                 }
+                                 // are we going to loop it?
+                                if (Settings.System.getInt(mContext.getContentResolver(), Settings.System.RINGER_LOOP, 1) == 1) {
+		                            // yes!
+		                            int duration = r.getDuration();
+		                            // ok, repeat the ringer after 0.5s
+		                        	sendEmptyMessageDelayed(PLAY_RING_ONCE, duration + 500);
+		                        }
                             }
                             break;
                         case STOP_RING:

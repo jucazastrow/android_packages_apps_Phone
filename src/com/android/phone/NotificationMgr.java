@@ -689,7 +689,7 @@ if (callDurationMsec > 0) {
             // Text line #1 is actually a Chronometer, not a plain TextView.
             // We format the elapsed time of the current call into a line like
             // "Ongoing call (01:23)".
-            contentView.setChronometer(mJellyStatusBarNotification ? R.id.title : R.id.text1,
+            contentView.setChronometer(R.id.text1,
                                        chronometerBaseTime,
                                        expandedViewLine1,
                                        true);
@@ -723,8 +723,7 @@ if (callDurationMsec > 0) {
         }
 
         if (DBG) log("- Updating expanded view: line 2 '" + /*expandedViewLine2*/ "xxxxxxx" + "'");
-        contentView.setTextViewText(mJellyStatusBarNotification ? R.id.text : 
-                                                                R.id.text2, expandedViewLine2);
+        contentView.setTextViewText(R.id.text2, expandedViewLine2);
         notification.contentView = contentView;
 
         // TODO: We also need to *update* this notification in some cases,

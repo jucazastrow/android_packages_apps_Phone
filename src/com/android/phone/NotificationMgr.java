@@ -637,13 +637,13 @@ private static CallFeaturesSetting mSettings;
         // "on hold") and 2 lines of text: (1) the label (either "ongoing
         // call" with time counter, or "on hold), and (2) the compact name of
         // the current Connection.
-        boolean mJellyStatusBarNotification = Settings.System.getInt(mContext.getContentResolver(),
+        final boolean mJellyStatusBarNotification = Settings.System.getInt(mContext.getContentResolver(),
                 Settings.System.ACHEP_JB_STATUS_BAR_NOTIFICATION, 0) == 1;
         
         RemoteViews contentView = new RemoteViews(mContext.getPackageName(),
-                                                   mJellyStatusBarNotification ? com.android.internal.R.layout.status_bar_latest_event_content_jb
+                                                   mJellyStatusBarNotification ? R.layout.ongoing_call_notification_jb
                                                    : R.layout.ongoing_call_notification);
-        contentView.setImageViewResource(mJellyStatusBarNotification ? com.android.internal.R.id.icon : R.id.icon, expandedViewIcon);
+        contentView.setImageViewResource(R.id.icon, expandedViewIcon);
 
         // if the connection is valid, then build what we need for the
         // first line of notification information, and start the chronometer.
@@ -689,7 +689,7 @@ if (callDurationMsec > 0) {
             // Text line #1 is actually a Chronometer, not a plain TextView.
             // We format the elapsed time of the current call into a line like
             // "Ongoing call (01:23)".
-            contentView.setChronometer(mJellyStatusBarNotification ? com.android.internal.R.id.title : R.id.text1,
+            contentView.setChronometer(mJellyStatusBarNotification ? R.id.title : R.id.text1,
                                        chronometerBaseTime,
                                        expandedViewLine1,
                                        true);
@@ -723,7 +723,7 @@ if (callDurationMsec > 0) {
         }
 
         if (DBG) log("- Updating expanded view: line 2 '" + /*expandedViewLine2*/ "xxxxxxx" + "'");
-        contentView.setTextViewText(mJellyStatusBarNotification ? com.android.internal.R.id.text : 
+        contentView.setTextViewText(mJellyStatusBarNotification ? R.id.text : 
                                                                 R.id.text2, expandedViewLine2);
         notification.contentView = contentView;
 

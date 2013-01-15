@@ -637,8 +637,12 @@ private static CallFeaturesSetting mSettings;
         // "on hold") and 2 lines of text: (1) the label (either "ongoing
         // call" with time counter, or "on hold), and (2) the compact name of
         // the current Connection.
+        final boolean mJellyStatusBarNotification = Settings.System.getInt(mContext.getContentResolver(),
+                Settings.System.ACHEP_JB_STATUS_BAR_NOTIFICATION, 0) == 1;
+        
         RemoteViews contentView = new RemoteViews(mContext.getPackageName(),
-                                                   R.layout.ongoing_call_notification);
+                                                   mJellyStatusBarNotification ? R.layout.ongoing_call_notification_jb
+                                                   : R.layout.ongoing_call_notification);
         contentView.setImageViewResource(R.id.icon, expandedViewIcon);
 
         // if the connection is valid, then build what we need for the

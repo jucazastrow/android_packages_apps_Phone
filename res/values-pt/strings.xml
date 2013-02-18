@@ -653,7 +653,7 @@
   <string name="no_voip" msgid="8901474054537199865">"Chamada pela internet não suportada"</string>
   <string name="notification_ongoing_calling_format">Chamando (<xliff:g id="duration">%s</xliff:g>)
     </string>
-  <string name="advanced_setting">Advanced Settings V.30.1</string>
+  <string name="advanced_setting">Configurações Avançadas v.30.1</string>
   <string name="vibrate_outgoing">Vibrar ao atender</string>
   <string name="vibrate_outgoing_sum">Vibrar quando uma chamada é atendida</string>
   <string name="vibrate_45">Vibrar sempre 45 segundos</string>
